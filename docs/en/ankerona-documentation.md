@@ -8,10 +8,10 @@
 
 ## Contents
 
-1. [Scientific references of the game](#01-scientific-references-of-the-game)
-2. [Where the name Ankerona comes from](#02-where-the-name-ankerona-comes-from)
-3. [Characters](#03-characters)
-4. [Tatu, the guide rover](#04-tatu-the-guide-rover)
+1. [Scientific references of the game](#01--scientific-references-of-the-game)
+2. [Where the name Ankerona comes from](#02--where-the-name-ankerona-comes-from)
+3. [Characters](#03--characters)
+4. [Tatu, the guide rover](#04--tatu-the-guide-rover)
 
 
 ---
