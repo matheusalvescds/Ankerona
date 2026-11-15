@@ -11,7 +11,7 @@ Jogo 2D em pixel art, no navegador, em que cada descoberta vem com o dado real e
 
 NASA Space Apps Challenge 2026 · Desafio **Interplanetary Survival Guide: Martian Map** · Equipe **Seldon Expedition** (Recife, Brasil)
 
-🌐 **[English](README.md)** · **Português** · [Como rodar](#como-rodar) · [Fontes e referências](#fontes-e-referências) · [Documentação em PDF](#documentação-em-pdf)
+🌐 **[English](README.md)** · **Português** · [Como rodar](#como-rodar) · [Fontes e referências](#fontes-e-referências) · [Documentação](#documentação)
 
 </div>
 
@@ -25,7 +25,7 @@ NASA Space Apps Challenge 2026 · Desafio **Interplanetary Survival Guide: Marti
 4. [O jogo](#o-jogo)
 5. [Dados científicos usados no jogo](#dados-científicos-usados-no-jogo)
 6. [Fontes e referências](#fontes-e-referências)
-7. [Documentação em PDF](#documentação-em-pdf)
+7. [Documentação](#documentação)
 8. [Stack tecnológica](#stack-tecnológica)
 9. [Arquitetura](#arquitetura)
 10. [Como rodar](#como-rodar)
@@ -86,11 +86,11 @@ O desafio pede uma visão integrada e em camadas de um local ou rota em Marte, r
 
 - **Ana Selari**, geóloga e protagonista.
 - **Cmdte. Keli Hastor**, **Eng. Rossi Brook** e **Dr. Natan Jonas**, a tripulação.
-- **Tatu**, o rover-guia. Ele vai à frente mostrando o caminho e reúne os dados da missão: alvo, guia, clima, radiação e mapa da cratera. Detalhes na seção 04 da [**Documentação do Ankerona (PDF)**](docs/pt-br/ankerona-documentacao.pdf).
+- **Tatu**, o rover-guia. Ele vai à frente mostrando o caminho e reúne os dados da missão: alvo, guia, clima, radiação e mapa da cratera. Detalhes na seção 04 da [**Documentação do Ankerona**](docs/pt-br/ankerona-documentacao.md).
 
-Perfis completos na seção 03 da [**Documentação do Ankerona (PDF)**](docs/pt-br/ankerona-documentacao.pdf).
+Perfis completos na seção 03 da [**Documentação do Ankerona**](docs/pt-br/ankerona-documentacao.md).
 
-O nome **Ankerona** junta as primeiras sílabas de **An**ca, **Ke**lly, **Ro**ss e **Na**than, a tripulação da primeira missão **CHAPEA** da NASA, que viveu 378 dias num habitat que simula Marte (2023–2024). Os nomes dos personagens também homenageiam essa tripulação. A história completa está na seção 02 da [**Documentação do Ankerona (PDF)**](docs/pt-br/ankerona-documentacao.pdf).
+O nome **Ankerona** junta as primeiras sílabas de **An**ca, **Ke**lly, **Ro**ss e **Na**than, a tripulação da primeira missão **CHAPEA** da NASA, que viveu 378 dias num habitat que simula Marte (2023–2024). Os nomes dos personagens também homenageiam essa tripulação. A história completa está na seção 02 da [**Documentação do Ankerona**](docs/pt-br/ankerona-documentacao.md).
 
 ### Mecânicas
 
@@ -152,7 +152,7 @@ Para manter a jogabilidade, algumas coisas são simuladas. O jogo avisa a jogado
 
 ## Fontes e referências
 
-Versão completa e formatada: seção 01 da [**Documentação do Ankerona (PDF)**](docs/pt-br/ankerona-documentacao.pdf).
+Versão completa e formatada: seção 01 da [**Documentação do Ankerona**](docs/pt-br/ankerona-documentacao.md).
 
 ### Artigos científicos
 
@@ -179,9 +179,9 @@ Versão completa e formatada: seção 01 da [**Documentação do Ankerona (PDF)*
 
 - NASA Space Apps Challenge 2026: [Interplanetary Survival Guide: Martian Map](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/).
 
-## Documentação em PDF
+## Documentação
 
-Toda a documentação complementar está num único arquivo: [**Documentação do Ankerona (PDF)**](docs/pt-br/ankerona-documentacao.pdf). Também disponível [em inglês](docs/en/ankerona-documentation.pdf).
+Toda a documentação complementar está num único arquivo: [**Documentação do Ankerona**](docs/pt-br/ankerona-documentacao.md). Também disponível [em inglês](docs/en/ankerona-documentation.md).
 
 | Seção | Conteúdo |
 |---|---|
