@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ankerona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="estilo.css">
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Seldon Expedition · NASA Space Apps 2026</span>
+    <h1>Ankerona: Missão Marte</h1>
+    <p>Teaser, viagem, pouso e a primeira EVA na Cratera Gale. Cada descoberta vira uma entrada do Guia de Campo, com o dado real e a fonte.</p>
+  </header>
+
+  <section class="console" aria-label="Console do jogo">
+    <div class="bezel">
+      <div class="brand"><span>GALE · SOL 1</span><i>● ENERGIA</i></div>
+      <div class="screen" id="screen" tabindex="0" aria-label="Tela do jogo. Use as setas para andar, Z para confirmar e X para voltar.">
+        <canvas id="cv" width="160" height="144"></canvas>
+
+        <div class="hud" id="hud" hidden>
+          <div class="row">
+            <div class="o2"><img class="ico" data-ico="i_o2" alt="O₂"><div class="bar" id="o2bar"><b id="o2fill"></b></div></div>
+            <div class="o2"><img class="ico" data-ico="i_bat" alt="Bateria"><div class="bar" id="enbar"><b id="enfill"></b></div></div>
+            <div class="o2"><img class="ico" data-ico="i_suit" alt="Traje"><div class="bar" id="sbar"><b id="sfill"></b></div></div>
+            <span class="hbs"><button class="hb hi" id="zoomBtn" data-act="Z" aria-label="Zoom: ver mais do mapa" aria-pressed="false"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M2 0h3v1H2zM1 1h1v1H1zM5 1h1v1H5zM0 2h1v3H0zM6 2h1v3H6zM1 5h1v1H1zM5 5h1v1H5zM2 6h3v1H2zM6 6h1v1H6zM7 7h1v1H7z"/><path id="lupaPM" fill="currentColor" d="M2 3h3v1H2z"/></svg></button><button class="hb hi" data-act="M" aria-label="Mapa da Cratera Gale"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 1h2v6H0zM3 0h2v6H3zM6 1h2v6H6z" opacity=".55"/><path fill="currentColor" d="M2 1h1v6H2zM5 0h1v6H5zM3 3h2v1H3z"/></svg></button></span>
+          </div>
+          <div class="row">
+            <span><img class="ico" data-ico="i_sun" alt=""><b id="clock" style="font-weight:400">SOL 1 08:00</b></span>
+            <span><img class="ico" data-ico="i_rad" alt="Radiação"><b id="dose" style="font-weight:400">0,000 mSv</b></span>
+            <button class="hb hl" data-act="L" aria-label="Trocar camada de dados"><img class="ico" data-ico="i_layer" alt=""><span class="layer" id="layerTag">MAPA</span></button>
+          </div>
+          <div class="obj" id="obj"></div>
+        </div>
+
+        <div class="ov" id="ov"></div>
+
+        <div class="toast" id="toast" hidden></div>
+        <div class="shel" id="shel" hidden></div>
+
+        <div class="dlg" id="dlg" hidden>
+          <img class="pt" id="dlgPt" alt="" hidden>
+          <div class="who" id="dlgWho"></div>
+          <div class="txt" id="dlgTxt"></div>
+          <div class="more">▼</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <div class="dpad" aria-label="Direcional">
+        <button class="u" data-dir="up" aria-label="Cima">▲</button>
+        <button class="l" data-dir="left" aria-label="Esquerda">◀</button>
+        <span class="c"></span>
+        <button class="r" data-dir="right" aria-label="Direita">▶</button>
+        <button class="d" data-dir="down" aria-label="Baixo">▼</button>
+      </div>
+      <div class="mid"><button class="tbtn" data-act="T" aria-label="Abrir o Tatu: dados da missão"><svg viewBox="0 0 10 9" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M0 0h10v7H0z"/><path fill="#1a0d0b" d="M1 1h8v5H1z"/><path fill="#9ad48a" d="M2 4h1v1H2zM3 3h1v2H3zM4 2h1v3H4zM6 3h1v2H6z"/><path fill="currentColor" d="M4 7h2v2H4z"/></svg><span>TATU</span></button></div>
+      <div class="ab">
+        <button class="b" data-act="B" aria-label="Botão B, voltar">B</button>
+        <button class="a" data-act="A" aria-label="Botão A, confirmar">A</button>
+      </div>
+    </div>
+    <p class="keys">Teclado: <kbd>←↑↓→</kbd> andar · <kbd>Z</kbd> confirmar · <kbd>X</kbd> voltar · <kbd>T</kbd> Tatu · <kbd>C</kbd> camada · <kbd>G</kbd> guia · <kbd>V</kbd> zoom · <kbd>M</kbd> mapa da cratera · <kbd>Z</kbd> perto do Tatu: dados</p>
+  </section>
+
+  <section class="panel">
+    <h2>Modo de teste · pular para</h2>
+    <p>Vai direto a qualquer etapa. As entradas do Guia e as camadas das etapas anteriores já vêm liberadas.</p>
+    <div class="jump" id="jump">
+      <button data-jump="teaser">TEASER<small>Prólogo animado</small></button>
+      <button data-jump="travel">VIAGEM<small>Cruzeiro e alerta solar</small></button>
+      <button data-jump="edl">POUSO<small>7 minutos de terror</small></button>
+      <button data-jump="eva">FASE 1<small>Yellowknife Bay</small></button>
+      <button data-jump="bagnold">FASE 2<small>Dunas Bagnold</small></button>
+      <button data-jump="spe">EVENTO<small>Partículas solares</small></button>
+      <button data-jump="boxwork">FASE 3<small>Boxwork</small></button>
+      <button data-jump="return">RETORNO<small>Volta ao habitat</small></button>
+      <button data-jump="ending">EPÍLOGO<small>Guia completo</small></button>
+    </div>
+  </section>
+
+  <section class="panel" aria-live="polite">
+    <h2>Camada ativa</h2>
+    <div class="lgname" id="lgName">MAPA</div>
+    <div class="chips" id="lgChips"></div>
+    <p id="lgNote"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Sobre o protótipo</h2>
+    <dl class="facts">
+      <dt>CENÁRIO</dt><dd>Missão tripulada hipotética: nenhum ser humano foi a Marte ainda. Tripulação, nave, habitat, rover pressurizado e o robô Tatu são o cenário do jogo. Todo dado científico é real e traz a fonte; os valores simulados estão indicados como tais.</dd>
+      <dt>NOME</dt><dd>Ankerona junta Anca, Kelly, Ross e Nathan: Anca Selariu, Kelly Haston, Ross Brockwell e Nathan Jones, a tripulação da CHAPEA 1, que viveu 378 dias num habitat que simula Marte, no Johnson Space Center da NASA (2023–2024). Projeto independente, com dados públicos da NASA; não é produto oficial da NASA.</dd>
+      <dt>MAPA</dt><dd>O terreno deste protótipo é ilustrativo, tem 96 × 72 tiles e não segue a orientação norte-sul (o mapa da cratera, sim). Na versão do hackathon, cada camada virá de dados reais da NASA para a Cratera Gale.</dd>
+      <dt>EQUIPE</dt><dd>4 tripulantes: Ana Selari (geóloga, você), Cmdte. Keli Hastor, Dr. Natan Jonas (médico) e Eng. Rossi Brook (engenheiro). As primeiras sílabas formam AN-KE-RO-NA, homenagem à tripulação da CHAPEA 1. Encoste e aperte A para falar.</dd>
+      <dt>GUIA</dt><dd>12 entradas: 9 na rota e 3 extras escondidas fora dela. Os fatos são de missões reais e trazem a fonte. As doses do evento solar dentro do jogo são simuladas.</dd>
+      <dt>RECURSOS</dt><dd>O₂, bateria (EN) e integridade do traje (TJ). Camadas de dados gastam bateria, rochas pontiagudas danificam o traje e um traje abaixo de 50% vaza O₂. O habitat e o rover restauram tudo.</dd>
+      <dt>ARTE</dt><dd>Tiles, personagens, Tatu, efeitos, retratos e HUD em pixel art feitos pela equipe; o mapa ainda é ilustrativo.</dd>
+      <dt>FOTOS</dt><dd>As entradas do Guia mostram, num tablet de campo, fotos reais tiradas pelo Curiosity no local (PIA17595, PIA20284, PIA20334, PIA26309 e PIA26559), com crédito NASA/JPL-Caltech/MSSS.</dd>
+      <dt>ESCOPO</dt><dd>3 regiões, 1 evento de clima espacial, 3 camadas e 3 pontos extras: o MVP planejado para as 48h.</dd>
+    </dl>
+  </section>
+</div>
+
+<script src="arte.js"></script>
+<script src="jogo.js"></script>
+
+</body></html>

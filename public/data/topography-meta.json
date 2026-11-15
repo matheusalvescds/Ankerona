@@ -1,0 +1,21 @@
+{
+  "source": "HiRISE DTM ESP_016893_1755 + ESP_017173_1755 (procedural approximation)",
+  "datum": "MOLA areoid",
+  "bounds_deg": {
+    "west": 137.45,
+    "east": 138.15,
+    "south": -5.55,
+    "north": -4.85
+  },
+  "size_px": [
+    96,
+    72
+  ],
+  "elevation_range_m": [
+    -5000,
+    -3000
+  ],
+  "pixel_scale_m": 16,
+  "contour_interval_m": 100,
+  "vertical_exaggeration": 2.5
+}

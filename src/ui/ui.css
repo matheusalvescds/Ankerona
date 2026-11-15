@@ -1,0 +1,99 @@
+/*
+ * Estilos dos textos de interface (HTML por cima do canvas). Tamanhos em pixels do jogo.
+ * Styles for interface text (HTML over the canvas). Sizes in game pixels.
+ */
+.ui-text { text-shadow: 0.6px 0.6px 0 #4a2216; }
+
+/*
+ * Nada na página se seleciona nem abre menu ao segurar o dedo. Sem isso, tocar muitas vezes seguidas
+ * (nas setas, por exemplo) selecionava a tela toda no celular, como um Ctrl+A. touch-action: manipulation
+ * também tira o zoom de dois toques.
+ * Nothing on the page can be selected or opens a menu on long press. Without this, tapping many times in a row
+ * (on the arrows, for example) selected the whole screen on phones, like Ctrl+A. touch-action: manipulation
+ * also removes double-tap zoom.
+ */
+html, body {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+/* Pisca como no protótipo. / Blinks as in the prototype. */
+@keyframes ui-blink { 50% { opacity: 0; } }
+.ui-blink { animation: ui-blink 1.1s steps(2) infinite; }
+
+/* Logo e imagens em pixel art. / Logo and pixel-art images. */
+.ui-image { image-rendering: pixelated; filter: drop-shadow(0 1.6px 0 rgba(0, 0, 0, 0.5)); pointer-events: none; }
+
+/* Seletor de idioma. / Language selector. */
+.ui-lang {
+  padding: 1.9px 2.9px;
+  background: #1a0d0b;
+  border: 0.64px solid #4a2216;
+  color: #8f3e1f;
+  text-shadow: none;
+}
+.ui-lang.is-active { color: #1a0d0b; border-color: #f7ead8; background: #f0c08a; } /* design system: idioma ativo = areia + tinta / active language = sand + ink */
+.ui-text[role='button']:focus-visible { outline: 0.6px solid #f0c08a; }
+
+/*
+ * Botões na tela para celular e tablet (src/ui/TouchPad.ts). Medidas em pixels da página, não do jogo.
+ * On-screen buttons for phones and tablets (src/ui/TouchPad.ts). Sizes in page pixels, not game pixels.
+ * Aparecem só no toque (classe ak-touch, de src/ui/device.ts) ou com ?toque=1. No teclado ficam escondidos.
+ * They only show on touch (ak-touch class, from src/ui/device.ts) or with ?toque=1. Hidden with a keyboard.
+ * Em pé: o jogo fica em cima e os botões embaixo. Deitado: os botões ficam nas laterais.
+ * Portrait: the game sits on top and the buttons below. Landscape: the buttons sit on the sides.
+ */
+.ak-pad {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  z-index: 5;
+}
+/* Setas em pixel (src/ui/arrows.ts), na cor do texto. / Pixel arrows (src/ui/arrows.ts), in the text color. */
+.ak-arrow { display: inline-block; flex: none; fill: currentColor; shape-rendering: crispEdges; vertical-align: -.02em; }
+.ak-arrow.h { width: .46em; height: .8em; }
+.ak-arrow.v { width: .8em; height: .46em; vertical-align: .12em; }
+/* Setas do idioma no título: um pouco maiores e mais claras. / Title language arrows: a bit bigger and lighter. */
+.ui-text > .ak-arrow.h { width: .75em; height: 1.3em; fill: #c96f3b; }
+.ak-pad button { pointer-events: auto; touch-action: none; cursor: pointer; font-family: 'Press Start 2P', monospace; -webkit-tap-highlight-color: transparent; }
+/* O direcional inteiro (com os cantos) é uma área só de toque; as setas são só desenho. / The whole d-pad (corners included) is one touch area; the arrows are just drawing. */
+.ak-pad .dpad { display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 48px); filter: drop-shadow(0 3px 0 #0b0504); pointer-events: auto; touch-action: none; }
+.ak-pad .dpad button { pointer-events: none; background: #1f100c; border: 0; color: #f0c08a; font-size: 12px; box-shadow: inset 0 2px 0 #3a1e16; }
+.ak-pad .dpad .up { grid-area: 1 / 2; border-radius: 7px 7px 0 0; }
+.ak-pad .dpad .left { grid-area: 2 / 1; border-radius: 7px 0 0 7px; }
+.ak-pad .dpad .c { grid-area: 2 / 2; background: #1f100c; box-shadow: inset 0 2px 0 #3a1e16; }
+.ak-pad .dpad .right { grid-area: 2 / 3; border-radius: 0 7px 7px 0; }
+.ak-pad .dpad .down { grid-area: 3 / 2; border-radius: 0 0 7px 7px; }
+.ak-pad .dpad .ak-arrow.h { width: 8px; height: 14px; vertical-align: middle; }
+.ak-pad .dpad .ak-arrow.v { width: 14px; height: 8px; vertical-align: middle; }
+.ak-pad .dpad button.on { background: #0f0806; color: #f7ead8; box-shadow: inset 0 2px 3px #000; }
+/* Joystick (o padrão): base redonda do tamanho do direcional e uma bolinha que segue o dedo. / Joystick (the default): round base the size of the d-pad and a knob that follows the finger. */
+.ak-pad .dpad.joy { display: flex; align-items: center; justify-content: center; width: 144px; height: 144px; border-radius: 50%; background: #1f100c; box-shadow: inset 0 2px 0 #3a1e16, inset 0 0 0 10px #180c09; }
+.ak-pad .dpad.joy .knob { width: 60px; height: 60px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle at 35% 30%, #5a2c1c, #3a1e16 65%); box-shadow: 0 3px 0 #0b0504; }
+.ak-pad .dpad.joy.held .knob { background: radial-gradient(circle at 35% 30%, #a9502a, #8f3e1f 65%); }
+.ak-pad .ab { display: flex; gap: 12px; align-items: flex-start; padding: 8px 10px; border-radius: 40px; background: #1c0e0b; box-shadow: inset 0 2px 4px #0b0504, 0 1px 0 #3a1e16; transform: rotate(-20deg); pointer-events: auto; touch-action: none; }
+.ak-pad .ab button { width: 56px; height: 56px; border-radius: 50%; border: 0; color: #f7ead8; font-size: 13px; background: radial-gradient(circle at 35% 30%, #a9502a, #8f3e1f 60%); box-shadow: 0 3px 0 #4a2216; }
+.ak-pad .ab button:active { transform: translateY(2px); box-shadow: 0 1px 0 #4a2216; }
+.ak-pad .ab .b { margin-top: 22px; }
+.ak-pad button:focus-visible { outline: 2px solid #f0c08a; outline-offset: 2px; }
+
+.ak-touch .ak-pad { display: flex; }
+
+/* Em pé, o jogo sobe para dar lugar aos botões. / In portrait, the game moves up to make room for the buttons. */
+@media (orientation: portrait) {
+  .ak-touch #game { bottom: 196px; }
+  .ak-touch .ak-pad { height: 196px; box-sizing: border-box; background: #120807; }
+}

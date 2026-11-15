@@ -1,0 +1,5 @@
+# PT: A pasta prototipo/ guarda os protótipos antigos só como referência. Ela fica fora
+#     da barra de linguagens do GitHub, para a barra mostrar o código do jogo (src/).
+# EN: The prototipo/ folder keeps the old prototypes as reference only. It stays out of
+#     GitHub's language bar, so the bar shows the game's code (src/).
+prototipo/** linguist-documentation

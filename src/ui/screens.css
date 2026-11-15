@@ -1,0 +1,233 @@
+/*
+ * Telas em HTML por cima do canvas: Teaser, Pouso, Epílogo e caixa de diálogo.
+ * Regras copiadas do protótipo final (prototipo/jogo/), com o prefixo .ak-screen.
+ * HTML screens over the canvas: Teaser, Landing, Epilogue and dialogue box.
+ * Rules copied from the final prototype, scoped under .ak-screen.
+ *
+ * .ak-screen mede 160x144 pixels do jogo e é um container: 1cqw = 1,6 pixel do jogo, como no protótipo.
+ * .ak-screen is 160x144 game pixels and a container: 1cqw = 1.6 game pixels, as in the prototype.
+ */
+.ak-screen {
+  position: relative;
+  width: 160px;
+  height: 144px;
+  container-type: inline-size;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  color: #f0c08a;
+}
+.ak-screen [hidden], .ak-screen[hidden] { display: none !important; }
+.ak-screen button { pointer-events: auto; }
+.ak-screen .ov { position: absolute; inset: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5cqw 6cqw; gap: 3cqw; }
+
+.ak-screen .dlg {position:absolute;left:2cqw;right:2cqw;bottom:2cqw;background:#1a0d0b;border:.7cqw solid #f0c08a;box-shadow:0 0 0 .7cqw #1a0d0b, inset 0 0 0 .5cqw #4a2216;padding:1.8cqw 3cqw 2cqw;height:28cqw;display:flex;flex-direction:column;gap:1cqw}
+.ak-screen .dlg .who {font-family:"Press Start 2P", monospace;font-size:2.5cqw;color:#c96f3b;letter-spacing:.06em}
+.ak-screen .dlg .txt {font-family:VT323, monospace;font-size:5cqw;line-height:1.05;color:#f7ead8;white-space:pre-wrap;flex:1;min-height:0;overflow:hidden}
+.ak-screen .dlg .more {position:absolute;right:2.6cqw;bottom:1.4cqw;font-family:"Press Start 2P", monospace;font-size:2.6cqw;color:#f0c08a;opacity:0}
+.ak-screen .dlg.ready .more {opacity:1;animation:ak-blink 1s steps(2) infinite}
+.ak-screen .dlg .pt {position:absolute;left:0;bottom:0;width:33cqw;height:auto;image-rendering:pixelated;filter:drop-shadow(0 0 .8cqw rgba(0,0,0,.55));pointer-events:none}
+.ak-screen .dlg.has-pt {padding-left:33cqw}
+.ak-screen .dlg.pt-r {padding-left:3cqw;padding-right:33cqw}
+.ak-screen .dlg.pt-r .pt {left:auto;right:0;transform:scaleX(-1)}
+.ak-screen .dlg.pt-r .more {right:auto;left:2.6cqw}
+.ak-screen .dlg.alert {border-color:#ff6a45}
+.ak-screen .dlg.alert .who {color:#ff6a45}
+.ak-screen .dlg.guide .who {color:#9ad48a}
+/* Pergunta com opções (DialogBox, linha com choices). / Question with options (DialogBox, line with choices). */
+.ak-screen .dlg .ch {display:flex;flex-direction:column;gap:.4cqw}
+.ak-screen .dlg .ch[hidden] {display:none}
+.ak-screen .dlg .ch button {pointer-events:auto;background:none;border:0;padding:.3cqw 0 .3cqw 3cqw;text-align:left;font-family:"Press Start 2P", monospace;font-size:2.3cqw;line-height:1.3;color:#c96f3b;cursor:pointer}
+.ak-screen .dlg .ch button.sel {color:#f7ead8;padding-left:0}
+.ak-screen .dlg .ch button.sel::before {content:"\25B6\FE0E  "}
+.ak-screen .dlg.ask .more {display:none}
+.ak-screen .teaser {justify-content:flex-end;padding:14cqw 6cqw 9cqw;gap:2.4cqw;background:linear-gradient(to top, rgba(26,13,11,.97) 0%, rgba(26,13,11,.9) 55%, rgba(26,13,11,.35) 80%, rgba(26,13,11,0) 100%);animation:ak-fadein .7s ease-out}
+.ak-screen .teaser>* {position:relative}
+.ak-screen .teaser .tz-img {position:absolute;right:-8%;top:-2%;width:80%;height:84%;object-fit:cover;object-position:center 30%;image-rendering:pixelated;filter:sepia(.55) saturate(1.2);opacity:0;
+  -webkit-mask-image:radial-gradient(ellipse 62% 62% at 58% 42%,#000 30%,transparent 72%);mask-image:radial-gradient(ellipse 62% 62% at 58% 42%,#000 30%,transparent 72%);
+  animation:ak-ghost 2.6s ease-out .3s forwards, ak-drift 14s linear forwards}
+@keyframes ak-ghost{from{opacity:0}to{opacity:.4}}
+@keyframes ak-ghostout{from{opacity:.4}to{opacity:0}}
+.ak-screen .teaser .tz-scene {position:absolute;top:0;left:0;width:100%;aspect-ratio:1672/941;transform-origin:64% 20%;animation:ak-pan 18s ease-in-out forwards}
+@keyframes ak-pan{from{transform:scale(1)}to{transform:scale(1.08)}}
+.ak-screen .teaser.scene .lines p {font-size:4.2cqw}
+.ak-screen .teaser.scene {gap:1.8cqw;padding-bottom:9cqw}
+.ak-screen .teaser .tz-scene img {width:100%;height:100%;display:block;image-rendering:pixelated}
+.ak-screen .teaser .tz-mars {position:absolute;width:3cqw;height:3cqw;margin:-1.5cqw 0 0 -1.5cqw;border-radius:50%;background:radial-gradient(circle,rgba(255,120,90,.95),rgba(255,80,60,0) 70%);animation:ak-mpulse 2.6s ease-in-out infinite}
+@keyframes ak-mpulse{50%{transform:scale(2.4);opacity:.45}}
+.ak-screen .teaser .tz-tw {position:absolute;width:.8cqw;height:.8cqw;background:#fff;box-shadow:0 0 1.2cqw #fff;opacity:0;animation:ak-tw 2.2s steps(2) infinite}
+@keyframes ak-tw{50%{opacity:.85}}
+.ak-screen .teaser .tz-shade2 {position:absolute;left:0;right:0;top:46%;height:18%;background:linear-gradient(to bottom, rgba(16,9,20,0), #100914)}
+.ak-screen .teaser.scene {background:#100914}
+@keyframes ak-drift{from{transform:scale(1) translateX(0)}to{transform:scale(1.07) translateX(-2%)}}
+.ak-screen .teaser .yr {position:absolute;left:4cqw;top:4cqw;font-family:"Press Start 2P", monospace;font-size:3.4cqw;line-height:1;color:#f7ead8;background:rgba(26,13,11,.85);border:.5cqw solid #c96f3b;padding:1.4cqw 2.2cqw;letter-spacing:.08em;box-shadow:.6cqw .6cqw 0 #1a0d0b;animation:ak-yrin .6s ease-out}
+.ak-screen .teaser .lines {display:flex;flex-direction:column;gap:1.4cqw}
+.ak-screen .teaser .lines p {margin:0;font-family:VT323, monospace;font-size:5.2cqw;line-height:1.05;color:#f7ead8;opacity:0;transform:translateY(3cqw);animation:ak-rise .9s ease-out forwards;text-wrap:balance}
+.ak-screen .teaser .lines p.big {font-family:"Press Start 2P", monospace;font-size:4.4cqw;line-height:1.5;color:#f0c08a}
+.ak-screen .skip {position:absolute;right:2.4cqw;top:2.2cqw;font-family:"Press Start 2P", monospace;font-size:2.2cqw;color:#8f3e1f}
+.ak-screen .dots {display:flex;gap:1.2cqw;justify-content:center}
+.ak-screen .dots i {width:1.6cqw;height:1.6cqw;background:#4a2216;display:block}
+.ak-screen .dots i.on {background:#f0c08a}
+.ak-screen .teaser .lines p {font-size:4.7cqw;line-height:1.08;text-shadow:0 .5cqw 0 #1a0d0b}
+.ak-screen .ov.tz-out {animation:ak-fadeout .55s ease-in forwards}
+.ak-screen .teaser.rollv {background:#0d0708;justify-content:center;padding:6cqw;animation:ak-fadein .35s ease-out}
+.ak-screen .roll {display:flex;flex-direction:column;align-items:center;gap:2.6cqw}
+.ak-screen .roll .rl {font-family:"Press Start 2P", monospace;font-size:2.6cqw;color:#c96f3b;letter-spacing:.12em}
+.ak-screen .roll .ry {font-family:"Press Start 2P", monospace;font-size:11cqw;line-height:1.2;color:#f7ead8;text-shadow:.8cqw .8cqw 0 #4a2216}
+@keyframes ak-fadein{from{opacity:0}to{opacity:1}}
+@keyframes ak-fadeout{to{opacity:0}}
+@keyframes ak-yrin{from{opacity:0;transform:translateY(-2cqw)}to{opacity:1;transform:none}}
+.ak-screen .edl {justify-content:flex-start;padding-top:6cqw;gap:2cqw}
+.ak-screen .edl .hd {font-family:"Press Start 2P", monospace;font-size:3.2cqw;color:#ff6a45;letter-spacing:.06em}
+.ak-screen .edl .clock {font-family:"Press Start 2P", monospace;font-size:9cqw;color:#f7ead8;text-shadow:.6cqw .6cqw 0 #4a2216}
+.ak-screen .edl .ph {font-family:"Press Start 2P", monospace;font-size:3cqw;color:#f0c08a}
+.ak-screen .edl .v {font-family:VT323, monospace;font-size:5cqw;color:#c96f3b}
+.ak-screen .edl .note {animation:ak-edlnote .6s ease-in 4s forwards;position:absolute;bottom:4cqw;left:6cqw;right:6cqw;font-family:VT323, monospace;font-size:4.4cqw;color:#f7ead8;background:rgba(26,13,11,.85);padding:1.6cqw 2cqw}
+.ak-screen .end {background:rgba(26,13,11,0);animation:ak-endbg 1.4s ease-out 2.2s forwards,ak-endbg2 1.6s ease-in-out 14.2s forwards;padding:0}
+.ak-screen .end .ep {position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8cqw;padding:5cqw 6cqw;text-align:center}
+.ak-screen .end .ep1 {animation:ak-epout 1s ease-in 14s forwards}
+.ak-screen .end .fin {font-family:"Press Start 2P", monospace;font-size:5cqw;line-height:1.8;max-width:80%;text-wrap:balance;color:#f7ead8;text-shadow:0 0 2.4cqw rgba(159,216,255,.55),.5cqw .5cqw 0 #1a0d0b;opacity:0;
+  animation:ak-finin 1.8s ease-out 16s forwards,ak-finout 1.2s ease-in 22s forwards}
+.ak-screen .end .ep3 img {width:80%;height:auto;image-rendering:pixelated;opacity:0;animation:ak-rise 1.4s ease-out 23.2s forwards}
+.ak-screen .end .ep3 .stats {animation-delay:25s;font-size:2.1cqw}
+.ak-screen .end .ep3 .acts {animation-delay:25.6s}
+.ak-screen .end .skipe {position:absolute;right:3cqw;bottom:2.4cqw;font-family:"Press Start 2P", monospace;font-size:2cqw;color:#8f3e1f;animation:ak-epout .5s 24.6s forwards}
+.ak-screen .end.fast,
+.ak-screen .end.fast * {animation-delay:0s!important;animation-duration:.01s!important}
+@keyframes ak-epout{to{opacity:0;transform:translateY(-2cqw)}}
+@keyframes ak-finin{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes ak-finout{to{opacity:0;transform:translateY(-8cqw)}}
+@keyframes ak-endbg2{to{background:rgba(10,6,12,.78)}}
+.ak-screen .end p {margin:0;font-family:VT323, monospace;font-size:4.3cqw;line-height:1.05;color:#f7ead8;opacity:0;animation:ak-rise .9s ease-out forwards}
+.ak-screen .end .stats {font-family:"Press Start 2P", monospace;font-size:2.4cqw;line-height:1.9;color:#c96f3b;opacity:0;animation:ak-rise .9s ease-out forwards}
+.ak-screen .end .acts {display:flex;gap:3cqw;opacity:0;animation:ak-rise .9s ease-out forwards}
+.ak-screen .end .acts button {font-family:"Press Start 2P", monospace;font-size:2.6cqw;padding:1.8cqw 2.4cqw;background:#8f3e1f;color:#f7ead8;border:.4cqw solid #f0c08a;cursor:pointer}
+.ak-screen .toast {position:absolute;left:50%;top:17cqw;transform:translateX(-50%);font-family:"Press Start 2P", monospace;font-size:2.5cqw;background:#f0c08a;color:#1a0d0b;padding:1.2cqw 2cqw;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.ak-screen .toast.good {background:#9ad48a}
+.ak-screen .toast.bad {background:#ff6a45}
+.ak-screen .toast.under {top:28cqw}
+@keyframes ak-blink{50%{opacity:0}}
+@keyframes ak-edlnote{to{opacity:0}}
+@keyframes ak-endbg{to{background:rgba(26,13,11,.55)}}
+@keyframes ak-rise{to{opacity:1;transform:none}}
+
+/* Movimento reduzido: o texto aparece sem animação. / Reduced motion: text shows without animation. */
+@media (prefers-reduced-motion: reduce) {
+  .ak-screen * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .ak-screen .teaser .lines p, .ak-screen .end p, .ak-screen .end .stats, .ak-screen .end .acts { opacity: 1; transform: none; }
+  .ak-screen .teaser .tz-img { opacity: 0.4; animation: none; }
+}
+
+/* ---------------------------------------------------------------- HUD da EVA / EVA HUD (src/ui/Hud.ts) */
+.ak-screen .hud {position:absolute;inset:0 0 auto 0;display:flex;flex-direction:column;gap:.8cqw;padding:1.6cqw 2.2cqw 1.4cqw;background:rgba(26,13,11,.86);border-bottom:.6cqw solid #4a2216;font-family:"Press Start 2P", monospace;font-size:2.6cqw;color:#f0c08a;pointer-events:none}
+.ak-screen .hud .row {display:flex;justify-content:space-between;align-items:center;gap:2cqw}
+.ak-screen .hud .row>span {display:flex;align-items:center;gap:1cqw;white-space:nowrap}
+.ak-screen .hud .row + .row {font-size:2.4cqw;gap:1.2cqw}
+.ak-screen .hud b {font-weight:400}
+.ak-screen .o2 {display:flex;align-items:center;gap:1cqw}
+.ak-screen .bar {width:12cqw;height:2.4cqw;background:#4a2216;border:.4cqw solid #f0c08a;position:relative}
+.ak-screen .bar b {position:absolute;inset:0 auto 0 0;background:#9ad48a;display:block;background-image:repeating-linear-gradient(90deg,transparent 0 1.6cqw,rgba(26,13,11,.55) 1.6cqw 2cqw)}
+.ak-screen .bar.mid b {background-color:#e3d06a}
+.ak-screen .bar.low b {background-color:#ff6a45}
+/* Marca VOLTA na barra de O₂ (ponto de retorno). / RETURN mark on the O₂ bar (point of return). */
+.ak-screen .bar .ret {position:absolute;top:-.8cqw;bottom:-.8cqw;width:.6cqw;margin-left:-.3cqw;background:#f7ead8;display:block}
+.ak-screen .bar .ret[hidden] {display:none}
+.ak-screen .bar .ret.near {background:#ff6a45;animation:ak-blink 1s steps(2) infinite}
+.ak-screen .ico {width:4.4cqw;height:4.4cqw;display:block;flex:none;background-repeat:no-repeat;background-size:600% 100%;image-rendering:pixelated}
+.ak-screen .hud .hb {pointer-events:auto;display:flex;align-items:center;gap:1cqw;background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+.ak-screen .hud .hbs {display:flex;gap:1.4cqw}
+.ak-screen .hud .hi {width:5.2cqw;height:5.2cqw;justify-content:center;background:#4a2216;border:.4cqw solid #8f3e1f;color:#f0c08a}
+.ak-screen .hud .hi svg {width:3.4cqw;height:3.4cqw;display:block}
+.ak-screen .hud .hi[aria-pressed="true"] {background:#f0c08a;color:#1a0d0b;border-color:#f7ead8}
+.ak-screen .hud .hb:focus-visible {outline:.4cqw solid #f7ead8}
+.ak-screen .hud .temp {color:#f0c08a;margin-left:.6cqw}
+.ak-screen .hud .temp.warn {color:#ff6a45}
+.ak-screen .hud .moon {display:none;width:3.2cqw;height:3.2cqw;margin:0 .6cqw;border-radius:50%;flex:none}
+.ak-screen .hud .sky[data-sky="dusk"] .ico, .ak-screen .hud .sky[data-sky="night"] .ico {display:none}
+.ak-screen .hud .sky[data-sky="dusk"] .moon {display:block;background:#8fb6dc}
+.ak-screen .hud .sky[data-sky="night"] .moon {display:block;box-shadow:inset -1cqw 0 0 0 #f7ead8}
+.ak-screen .hud .layer {font-size:2.2cqw;white-space:nowrap;color:#1a0d0b;background:#f0c08a;padding:.4cqw 1cqw}
+.ak-screen .hud .obj {pointer-events:auto;cursor:pointer;display:block;width:100%;padding:0;border:0;background:none;text-align:left;font:inherit;font-size:2.5cqw;color:#c96f3b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ak-screen .hud .obj::after {content:' ⓘ';color:#f0c08a}
+.ak-screen .hud .obj.alert {color:#ff6a45;animation:ak-blink 1s steps(2) infinite}
+.ak-screen .hud.glitch .row {animation:ak-glitch .25s steps(2) infinite}
+@keyframes ak-glitch {50% {transform:translateX(.4cqw);opacity:.75}}
+.ak-screen .shel {position:absolute;left:50%;top:17cqw;transform:translateX(-50%);font-family:"Press Start 2P", monospace;font-size:2.2cqw;line-height:1.8;text-align:center;white-space:nowrap;color:#f7ead8;background:rgba(26,13,11,.85);border:.4cqw solid #9ad48a;padding:.8cqw 2cqw;pointer-events:none}
+.ak-screen .shel b {color:#9ad48a;font-weight:400}
+.ak-screen .shel i {font-style:normal;color:#f0c08a}
+.ak-screen .shel i.risk {color:#ff6a45}
+@keyframes ak-blink {50% {opacity:0}}
+
+/* ---------------------------------------------------------------- Guia de Campo / Field Guide (src/ui/FieldGuide.ts) */
+.ak-screen .guide {background:#1a0d0b;justify-content:flex-start;align-items:stretch;text-align:left;padding:3cqw 3.4cqw;gap:2cqw}
+.ak-screen .guide .gh {display:flex;justify-content:space-between;align-items:baseline;font-family:"Press Start 2P", monospace;font-size:3cqw;color:#f0c08a;gap:2cqw}
+.ak-screen .guide .gh span {font-size:2.4cqw;color:#c96f3b}
+.ak-screen .glist {display:grid;grid-template-columns:repeat(6,1fr);gap:1cqw}
+.ak-screen .glist button {font-family:"Press Start 2P", monospace;font-size:2.6cqw;padding:1.4cqw 0;background:#4a2216;color:#8f3e1f;border:.4cqw solid #4a2216;cursor:pointer}
+.ak-screen .glist button.ex:not(.got) {background:#1a0d0b;border-style:dashed;border-color:#8f3e1f}
+.ak-screen .glist button.got {background:#8f3e1f;color:#f7ead8}
+.ak-screen .glist button.sel {border-color:#f7ead8}
+.ak-screen .glist button:focus-visible {outline:.4cqw solid #f0c08a}
+.ak-screen .gbody {flex:1;min-height:0;overflow-y:auto;font-family:VT323, monospace;font-size:4.6cqw;line-height:1.1;color:#f7ead8;display:flex;flex-direction:column;gap:1.6cqw;padding-right:1cqw;scrollbar-width:thin;scrollbar-color:#8f3e1f #1a0d0b}
+.ak-screen .gbody h3 {margin:0;font-family:"Press Start 2P", monospace;font-weight:400;font-size:3.2cqw;line-height:1.5;color:#f0c08a}
+.ak-screen .gbody p {margin:0}
+.ak-screen .gbody .lesson {color:#9ad48a}
+.ak-screen .gbody .diary {color:#f0c08a;font-style:italic;border-left:.6cqw solid #8f3e1f;padding-left:2cqw}
+.ak-screen .gbody .tag {font-family:"Press Start 2P", monospace;font-size:2.2cqw;color:#c96f3b;font-style:normal}
+.ak-screen .gbody .src {color:#c96f3b;font-size:3.8cqw}
+.ak-screen .gbody .locked {color:#8f3e1f}
+/* As fotos já vêm dentro do tablet de campo desenhado pelo time. / The photos already come inside the team's field-tablet frame. */
+.ak-screen .gbody figure {margin:0;display:flex;flex-direction:column;gap:.8cqw;flex:none}
+.ak-screen .gbody img {width:100%;display:block;flex:none}
+.ak-screen .gbody figcaption {font-family:"Press Start 2P", monospace;font-size:2.1cqw;line-height:1.6;color:#c96f3b}
+.ak-screen .gfoot {font-family:"Press Start 2P", monospace;font-size:2.1cqw;color:#8f3e1f}
+
+/* ---------------------------------------------------------------- Painel de Dados do Tatu / Tatu Data Panel */
+.ak-screen .tatu-panel {background:#1a0d0b;justify-content:flex-start;align-items:stretch;text-align:left;padding:3cqw 3.4cqw;gap:2cqw}
+.ak-screen .tatu-panel .gh {display:flex;justify-content:space-between;align-items:baseline;font-family:"Press Start 2P", monospace;font-size:3cqw;color:#f0c08a;gap:2cqw}
+.ak-screen .tatu-panel .gh span {font-size:2.2cqw;color:#c96f3b}
+.ak-screen .tatu-menu {display:flex;flex-direction:column;gap:1.2cqw;flex:1;min-height:0;overflow-y:auto;padding-right:1cqw}
+.ak-screen .tatu-menu button {display:flex;justify-content:space-between;align-items:center;background:#4a2216;border:.4cqw solid #8f3e1f;color:#f7ead8;font-family:"Press Start 2P", monospace;font-size:2.4cqw;padding:1.4cqw 2cqw;cursor:pointer}
+.ak-screen .tatu-menu button.sel, .ak-screen .tatu-menu button:hover {border-color:#f0c08a;background:#8f3e1f}
+.ak-screen .tatu-menu button span.badge {font-size:2cqw;color:#f0c08a}
+.ak-screen .tatu-view {flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:1.4cqw;font-family:VT323, monospace;font-size:4.6cqw;line-height:1.15;color:#f7ead8;scrollbar-width:thin;padding-right:1cqw}
+.ak-screen .tatu-view p {margin:0}
+.ak-screen .tatu-view p.big {font-family:"Press Start 2P", monospace;font-size:2.4cqw;color:#f0c08a;line-height:1.5}
+.ak-screen .tatu-view .bk {color:#c96f3b;font-family:"Press Start 2P", monospace;font-size:2.1cqw;display:inline-block;margin-right:1cqw}
+.ak-screen .tatu-view .src {color:#c96f3b;font-size:3.8cqw;margin-top:auto}
+.ak-screen .tatu-view .wave {color:#9fd8ff;letter-spacing:.15em;font-size:3.5cqw}
+.ak-screen .tatu-foot {font-family:"Press Start 2P", monospace;font-size:2.1cqw;color:#8f3e1f}
+
+/* ---------------------------------------------------------------- Mapa da missão (tecla M) / Mission map (M key) (src/scenes/eva/GaleMapOverlay.ts) */
+.ak-screen .gmap {background:#1a0d0b;justify-content:flex-start;align-items:stretch;text-align:left;padding:2.4cqw 2.6cqw;gap:1.6cqw}
+.ak-screen .gmap .gh {display:flex;justify-content:space-between;align-items:baseline;font-family:"Press Start 2P", monospace;font-size:3cqw;color:#f0c08a;gap:2cqw}
+.ak-screen .gmap .gh span {font-size:2.2cqw;color:#c96f3b}
+.ak-screen .gm-body {display:flex;gap:2cqw;align-items:flex-start}
+.ak-screen .gm-eva {position:relative;flex:0 0 72%;line-height:0;border:.4cqw solid #8f3e1f}
+.ak-screen .gm-eva canvas, .ak-screen .gm-gale canvas {width:100%;height:auto;display:block;image-rendering:pixelated}
+.ak-screen .gm-tag {position:absolute;transform:translate(-50%,.6cqw);font-family:VT323, monospace;font-size:3.2cqw;line-height:1;color:#9fd8ff;white-space:nowrap;text-shadow:.3cqw 0 #1a0d0b,-.3cqw 0 #1a0d0b,0 .3cqw #1a0d0b,0 -.3cqw #1a0d0b}
+.ak-screen .gm-tag.safe {color:#9ad48a}
+.ak-screen .gm-tag.done {color:#f0c08a}
+.ak-screen .gm-tag.up {transform:translate(-50%,-100%)}
+.ak-screen .gm-tag.you {color:#f7ead8;transform:translate(-50%,-150%);font-family:"Press Start 2P", monospace;font-size:1.8cqw}
+.ak-screen .gm-tag.tatu {color:#ff9a4a;transform:translate(-50%,.8cqw);font-family:"Press Start 2P", monospace;font-size:1.6cqw}
+.ak-screen .gm-tag.extra {color:#e3d06a;font-size:2.8cqw}
+.ak-screen .gm-tag[hidden] {display:none}
+.ak-screen .gm-side {flex:1;min-width:0;display:flex;flex-direction:column;gap:1.2cqw}
+.ak-screen .gm-sub {font-family:"Press Start 2P", monospace;font-size:1.8cqw;color:#c96f3b;line-height:1.4}
+.ak-screen .gm-gale {position:relative;border:.4cqw solid #8f3e1f;line-height:0}
+.ak-screen .gm-n, .ak-screen .gm-ms {position:absolute;font-family:VT323, monospace;line-height:1;color:#f7ead8;text-shadow:.3cqw 0 #1a0d0b,-.3cqw 0 #1a0d0b,0 .3cqw #1a0d0b,0 -.3cqw #1a0d0b}
+.ak-screen .gm-n {top:1cqw;right:1.4cqw;font-size:3.4cqw}
+.ak-screen .gm-ms {left:50%;top:58%;transform:translateX(-35%);font-size:3cqw;color:#f0c08a}
+.ak-screen .gm-legend {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2cqw 2cqw;font-family:VT323, monospace;font-size:3.4cqw;line-height:1;color:#f7ead8}
+.ak-screen .gm-legend li {display:flex;align-items:center;gap:1.2cqw;min-width:0;white-space:nowrap}
+.ak-screen .gm-legend li.wide {grid-column:1 / -1;color:#9fd8ff}
+.ak-screen .gm-k {width:2.2cqw;height:2.2cqw;flex:none;border:.4cqw solid #1a0d0b;box-sizing:content-box}
+.ak-screen .gm-k.you {background:#9fd8ff}
+.ak-screen .gm-k.tatu {background:#ff9a4a}
+.ak-screen .gm-k.safe {background:#9ad48a}
+.ak-screen .gm-k.target {background:#9fd8ff;outline:.4cqw solid #f7ead8}
+.ak-screen .gm-k.todo {background:#1a0d0b;border-color:#9fd8ff}
+.ak-screen .gm-k.done {background:#f0c08a}
+.ak-screen .gm-k.extra {background:#e3d06a;transform:rotate(45deg) scale(.8)}
+.ak-screen .gm-foot {font-family:VT323, monospace;font-size:3cqw;line-height:1.1;color:#c96f3b;margin-top:auto}

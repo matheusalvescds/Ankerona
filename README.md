@@ -298,12 +298,15 @@ To update: `git pull`, then `npm install`. More details in [`docs/desenvolviment
 ```
 ankerona/
 ├── data/                  # map data (map.json); see data/LEIAME.md
-├── docs/                  # development documentation
-│   ├── en/                # Ankerona documentation PDF (English)
-│   └── pt-br/             # Ankerona documentation PDF (Portuguese)
-├── prototipo/             # original HTML prototype and PT/EN texts
+├── docs/                  # Ankerona documentation
+│   ├── en/                # in English
+│   ├── pt-br/             # in Portuguese
+│   ├── desenvolvimento.md # how to install, run and contribute (PT/EN)
+│   └── juncao-prototipos.md # how the prototypes were merged (PT/EN)
+├── prototipo/             # reference prototypes (HTML, CSS and JS) and PT/EN texts
 ├── public/
 │   ├── assets/
+│   │   ├── audio/         # music and sound effects
 │   │   ├── guide/         # real NASA photos used in the Field Guide
 │   │   ├── sprites/       # transparent sprites, organized by category
 │   │   └── teaser/        # teaser art

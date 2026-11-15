@@ -298,12 +298,15 @@ Para atualizar: `git pull` e depois `npm install`. Mais detalhes em [`docs/desen
 ```
 ankerona/
 ├── data/                  # dados do mapa (map.json); ver data/LEIAME.md
-├── docs/                  # documentação de desenvolvimento
-│   ├── pt-br/             # documentação do Ankerona em PDF (português)
-│   └── en/                # documentação do Ankerona em PDF (inglês)
-├── prototipo/             # protótipo original em HTML e textos PT/EN
+├── docs/                  # documentação do Ankerona
+│   ├── pt-br/             # em português
+│   ├── en/                # em inglês
+│   ├── desenvolvimento.md # como instalar, rodar e contribuir (PT/EN)
+│   └── juncao-prototipos.md # como os protótipos foram juntados (PT/EN)
+├── prototipo/             # protótipos de referência (HTML, CSS e JS) e textos PT/EN
 ├── public/
 │   ├── assets/
+│   │   ├── audio/         # músicas e efeitos sonoros
 │   │   ├── guide/         # fotos reais da NASA usadas no Guia de Campo
 │   │   ├── sprites/       # sprites transparentes, organizados por categoria
 │   │   └── teaser/        # arte do teaser

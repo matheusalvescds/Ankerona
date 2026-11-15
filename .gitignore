@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+
+# Pacote de artes original do Drive (pesado). Só as artes usadas vão para public/assets/.
+# Original art pack from Drive (heavy). Only the art in use goes into public/assets/.
+_artes/
+
+# Spartan AI config (contains API keys)
+.spartan/ai.env

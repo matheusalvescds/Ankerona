@@ -1,0 +1,135 @@
+<title>Guia de Sobrevivência Marciano</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="estilo.css">
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Protótipo jogável v3 · NASA Space Apps 2026</span>
+    <h1>Guia de Sobrevivência Marciano</h1>
+    <p>Teaser, viagem, pouso e a primeira EVA na Cratera Gale. Oxigênio, tempo, frio, energia solar e poeira decidem a sua rota. Cada descoberta vira uma entrada do Guia de Campo, com o dado real e a fonte.</p>
+  </header>
+
+  <section class="console" aria-label="Console do jogo">
+    <div class="bezel">
+      <div class="brand"><span>GALE · MONTE SHARP</span><i>● ENERGIA</i></div>
+      <div class="screen" id="screen" tabindex="0" aria-label="Tela do jogo. Use as setas para andar, Z para confirmar e X para voltar.">
+        <canvas id="cv" width="160" height="144"></canvas>
+
+        <div class="hud" id="hud" hidden>
+          <div class="row">
+            <div class="o2"><span class="lbl">O2</span><div class="bar" id="o2bar"><b id="o2fill"></b><i id="o2ret" hidden></i></div><span id="o2txt">100%</span></div>
+            <span id="clock">SOL 1 08:00</span>
+          </div>
+          <div class="row">
+            <div class="o2"><span class="lbl">⚡</span><div class="bar tb" id="tbar"><b id="tfill"></b></div><span id="tatu">82%</span></div>
+            <span><span id="sunic" class="sunic"></span> <span id="temp">−20°C</span></span>
+          </div>
+          <div class="obj" id="obj"></div>
+          <span id="layerTag" hidden></span>
+        </div>
+
+        <div class="ov" id="ov"></div>
+
+        <div class="toast" id="toast" hidden></div>
+
+        <div class="dlg" id="dlg" hidden>
+          <div class="who" id="dlgWho"></div>
+          <div class="txt" id="dlgTxt"></div>
+          <div class="more">▼</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <div class="dpad" aria-label="Direcional">
+        <button class="u" data-dir="up" aria-label="Cima">▲</button>
+        <button class="l" data-dir="left" aria-label="Esquerda">◀</button>
+        <span class="c"></span>
+        <button class="r" data-dir="right" aria-label="Direita">▶</button>
+        <button class="d" data-dir="down" aria-label="Baixo">▼</button>
+      </div>
+      <div class="mid">
+        <button class="pill" data-act="L" aria-label="Alternar camada"><span></span>CAMADA</button>
+        <button class="pill" data-act="G" aria-label="Abrir Guia de Campo"><span></span>GUIA</button>
+      </div>
+      <div class="ab">
+        <button class="b" data-act="B" aria-label="Botão B, voltar">B</button>
+        <button class="a" data-act="A" aria-label="Botão A, confirmar">A</button>
+      </div>
+    </div>
+    <p class="keys">Teclado: <kbd>←↑↓→</kbd> andar · <kbd>Z</kbd> confirmar · <kbd>X</kbd> voltar · <kbd>C</kbd> camada · <kbd>G</kbd> guia</p>
+  </section>
+
+  <section class="panel mission">
+    <h2>Painel da missão</h2>
+    <div class="mgrid">
+      <figure class="mini">
+        <canvas id="mini" width="192" height="144" aria-label="Minimapa da área da EVA"></canvas>
+        <figcaption><span><i class="k-me"></i>você</span><span><i class="k-sh"></i>abrigo</span><span><i class="k-go"></i>alvo</span><span><i class="k-ex"></i>extra</span><span><i class="k-pr"></i>pegadas</span></figcaption>
+      </figure>
+      <div class="mside">
+        <ol class="steps" id="steps"></ol>
+        <dl class="reads">
+          <dt>Dose</dt><dd id="rDose">0,000 mSv</dd>
+          <dt>Poeira no ar (τ)</dt><dd id="rTau">0,5</dd>
+          <dt>Painéis do Tatu</dt><dd id="rPanel">limpos</dd>
+          <dt>Rodas do Tatu</dt><dd id="rWheel">100%</dd>
+          <dt>Poeira no traje</dt><dd id="rSuit">0%</dd>
+        </dl>
+      </div>
+    </div>
+    <details class="howto">
+      <summary>Como ler o visor</summary>
+      <dl class="facts">
+        <dt>O2</dt><dd>Oxigênio do traje. O risco branco é o VOLTA: o O2 que você precisa para chegar ao abrigo mais próximo. Se a barra encostar nele, volte.</dd>
+        <dt>⚡</dt><dd>Bateria do Tatu. Ela carrega com o sol e alimenta os instrumentos das camadas. Sem bateria, as camadas desligam.</dd>
+        <dt>HORA</dt><dd>Um sol dura 24h39min. O ícone mostra a altura do sol, e a temperatura cai muito depois das 18h.</dd>
+        <dt>A</dt><dd>No habitat: limpa os painéis do Tatu ou descansa até o próximo sol. Em qualquer lugar: lê o tipo de solo.</dd>
+      </dl>
+    </details>
+  </section>
+
+  <section class="panel" aria-live="polite">
+    <h2>Camada ativa</h2>
+    <div class="lgname" id="lgName">MAPA</div>
+    <div class="chips" id="lgChips"></div>
+    <p id="lgNote"></p>
+  </section>
+
+  <section class="panel">
+    <h2>O que mudou na v3</h2>
+    <ul class="news">
+      <li><b>VISOR</b><span>Mais limpo: só oxigênio, bateria do Tatu, hora e temperatura. O resto foi para o painel da missão, com minimapa e lista de objetivos.</span></li>
+      <li><b>DICAS</b><span>O tutorial longo virou dicas curtas, que aparecem quando cada coisa acontece pela primeira vez.</span></li>
+      <li><b>MURRAY</b><span>Um campo de rochas pontiagudas desgasta as rodas do Tatu, como aconteceu com o Curiosity em 2013. A camada TERRENO mostra onde desviar.</span></li>
+      <li><b>EXTRAS</b><span>Quatro pontos opcionais: Rocknest, Formação Murray, Vera Rubin Ridge e Gediz Vallis, cada um com uma entrada no Guia.</span></li>
+      <li><b>CÉU</b><span>Redemoinhos de poeira que limpam os painéis, o pôr do sol azul de Gale e a Terra vista de Marte. O Guia agora tem 19 entradas.</span></li>
+    </ul>
+    <p>Mecânicas da v2 que continuam: ponto de retorno (VOLTA), frio noturno, energia solar e tempestade de poeira, eclusa com limpeza do traje.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Para quem for testar</h2>
+    <ol class="ask">
+      <li>Você entendeu o marcador VOLTA sem precisar ler o painel?</li>
+      <li>A tempestade e a noite deixaram o jogo tenso ou só lento?</li>
+      <li>Alguma mecânica ficou confusa ou atrapalhou mais do que ensinou?</li>
+      <li>Qual nota de segurança você tirou?</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>Sobre o protótipo</h2>
+    <dl class="facts">
+      <dt>MAPA</dt><dd>O terreno deste protótipo é ilustrativo. Na versão do hackathon, cada camada virá de dados reais da NASA para a Cratera Gale.</dd>
+      <dt>GUIA</dt><dd>Os fatos das 19 entradas são de missões reais e trazem a fonte. As doses do evento solar, o ritmo de consumo e a energia do Tatu são simulados em escala de jogo.</dd>
+      <dt>TATU</dt><dd>O Curiosity de verdade usa energia nuclear. O Tatu é um rover original do jogo, solar, para mostrar o risco que a poeira traz.</dd>
+      <dt>ESCOPO</dt><dd>3 regiões principais, 4 pontos extras, 2 eventos (partículas solares e tempestade de poeira) e 3 camadas.</dd>
+    </dl>
+  </section>
+</div>
+
+<script src="guia.js"></script>
