@@ -1,8 +1,8 @@
 /**
  * HUD da EVA: barras de O₂, bateria e traje (verde, amarelo e vermelho), hora "SOL 1 08:00" com sol, entardecer ou lua e temperatura,
- * dose em mSv, camada ativa e objetivo atual (tocar no ⓘ repete a instrução). Botões de zoom, guia e camada para quem joga no toque.
+ * dose em mSv, camada ativa e objetivo atual (tocar no ⓘ repete a instrução). Botões de zoom, mapa da missão, guia e camada para quem joga no toque.
  * EVA HUD: O₂, battery and suit bars (green, yellow and red), "SOL 1 08:00" clock with sun, dusk or moon and temperature, dose in mSv,
- * active layer and current objective (tapping ⓘ repeats the briefing). Zoom, guide and layer buttons for touch players.
+ * active layer and current objective (tapping ⓘ repeats the briefing). Zoom, mission map, guide and layer buttons for touch players.
  *
  * O HUD só mostra: os valores vêm do estado da partida (src/state/contract.ts, HudSnapshot).
  * The HUD only displays: values come from the game state (src/state/contract.ts, HudSnapshot).
@@ -26,6 +26,7 @@ type BarId = keyof typeof BANDS;
 
 // Desenhos de 8x8 pixels para os botões. / 8x8 pixel drawings for the buttons.
 const SVG_ZOOM = '<path fill="currentColor" d="M2 0h3v1H2zM1 1h1v1H1zM5 1h1v1H5zM0 2h1v3H0zM6 2h1v3H6zM1 5h1v1H1zM5 5h1v1H5zM2 6h3v1H2zM6 6h1v1H6zM7 7h1v1H7zM2 3h3v1H2z"/>';
+const SVG_MAP = '<path fill="currentColor" d="M2 0h4v1H2zM1 1h1v1H1zM6 1h1v1H6zM0 2h1v1H0zM3 2h2v1H3zM7 2h1v1H7zM0 3h1v1H0zM3 3h2v1H3zM7 3h1v1H7zM1 4h1v1H1zM6 4h1v1H6zM2 5h1v1H2zM5 5h1v1H5zM3 6h2v1H3z"/>';
 const SVG_BOOK = '<path fill="currentColor" d="M0 1h3v1H0zM5 1h3v1H5zM0 2h1v5H0zM7 2h1v5H7zM3 2h2v6H3zM1 6h2v1H1zM5 6h2v1H5z"/>';
 
 function icon(frame: number, alt = ''): string {
@@ -63,6 +64,7 @@ export class Hud {
         ${bar('o2', 'hud.o2')}${bar('battery', 'hud.battery')}${bar('suit', 'hud.suit')}
         <span class="hbs">
           ${btn('zoom', 'hi', 'hud.zoom', `<svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">${SVG_ZOOM}</svg>`)}
+          ${btn('map', 'hi', 'hud.map', `<svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">${SVG_MAP}</svg>`)}
           ${btn('guide', 'hi', 'hud.guide', `<svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true">${SVG_BOOK}</svg>`)}
         </span>
       </div>

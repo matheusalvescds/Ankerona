@@ -275,6 +275,7 @@
   "hud.dose": "Radiation",
   "hud.clock": "SOL {sol} {time}",
   "hud.zoom": "Zoom: see more of the map",
+  "hud.map": "Open the mission map",
   "hud.guide": "Open the Field Guide",
   "hud.layer": "Switch data layer",
   "hud.layerNow": "LAYER: {name}",
